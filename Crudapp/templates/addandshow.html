@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+<body>
+           Add new Student
+    <form action="" method="POST">
+        {% csrf_token %}
+        {{ form.as_p}}
+        <input type="submit" value="Add">
+    </form>
+ <h4>Information  about user data</h4>
+ {% if stu %}
+ <table>
+    <thead>
+    <tr>
+        <th>ID</th>
+      <br> <th>Name</th>
+      <br><th>Email</th>
+      <br> <th>Password</th>
+       <br> <th>Action</th>
+    </tr>
+</thead>
+<tbody>
+    {%  for st in stu %}
+    <tr>
+        <td >{{ st.id}}</td>
+        <td >{{ st.name}}</td>
+        <td>{{ st.email}}</td>
+        <td>{{ st.password }}</td>
+        <td>
+            <a href=" {% url 'updatestudent'  st.id %}  " type="submit" >Edit</a>
+            <form action=" {% url 'deletedata' st.id %}" method="post">
+                {% csrf_token %}
+                <input type="submit" value="Delete">
+            </form>
+        </td>
+    </tr>
+    {% endfor %} 
+</tbody>
+ </table>
+ {% else %}
+ <p>No Record Found</p>
+ {% endif %} 
+</body>
+</html>
